@@ -33,6 +33,8 @@ static void *worker(void *data)
 		d->handler(d->opdata);
 
 		d->ready = 0;
+		d->handler = NULL;
+		d->opdata = NULL;
 		pthread_cond_signal(&d->cond);
 		pthread_mutex_unlock(&d->mutex);
 	}
