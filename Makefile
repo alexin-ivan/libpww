@@ -8,6 +8,7 @@ libpww.o: libpww.c libpww.h
 install:
 	install -Dm 0755 libpww.so $(DESTDIR)/usr/lib/libpww.so
 	install -Dm 0644 libpww.h $(DESTDIR)/usr/include/libpww.h
+	install -Dm 0644 COPYING $(DESTDIR)/usr/share/doc/libpww/COPYING
 clean:
 	rm -f libpww.o
 	rm -f libpww.so

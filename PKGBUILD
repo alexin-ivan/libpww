@@ -8,12 +8,14 @@ arch=('i686')
 license=('GPLv3')
 depends=('glibc')
 makedepends=('gcc')
-source=("Makefile"
+source=("COPYING"
+	"Makefile"
 	"libpww.c"
 	"libpww.h")
-md5sums=('4b3f890eb1baabfc8b8ca94b75c89df1'
-	'8e74460821d2041fbe5e568797b09ced'
-	'286bdaef7fa68353934f76c863e7511c')
+md5sums=('d32239bcb673463ab874e80d47fae504'
+	'd70796faa6b0b7d7deae977580984e5f'
+	'1717a706134da05394bb55db764c0138'
+	'0bf1d9ded865e01efdaea42c6fb9e9ca')
 install='libpww.install'
 build() {
 	make
