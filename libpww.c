@@ -18,6 +18,27 @@
 
 #include "libpww.h"
 
+void *worker(void *data)
+{
+	worker_data_t *d = data;
+	
+	for (;;)
+	{
+		pthread_mutex_lock(&d->mutex);
+		while (d->ready == 0)
+			pthread_cond_wait(&d->cond, &d->mutex);
+		
+		d->handler(d->opdata);
+
+		d->ready = 0;
+		pthread_mutex_unlock(&d->mutex);
+
+		pthread_mutex_lock(&d->mutex);
+		pthread_cond_signal(&d->cond);
+		pthread_mutex_unlock(&d->mutex);
+	}
+}
+
 void start_worker(worker_data_t *t, void *opdata, void *handler)
 {
 	pthread_mutex_init(&t->mutex, NULL);
@@ -44,23 +65,3 @@ void join_task(worker_data_t *t)
 	pthread_mutex_unlock(&t->mutex);
 }
 
-void *worker(void *data)
-{
-	worker_data_t *d = data;
-	
-	for (;;)
-	{
-		pthread_mutex_lock(&d->mutex);
-		while (d->ready == 0)
-			pthread_cond_wait(&d->cond, &d->mutex);
-		
-		d->handler(d->opdata);
-
-		d->ready = 0;
-		pthread_mutex_unlock(&d->mutex);
-
-		pthread_mutex_lock(&d->mutex);
-		pthread_cond_signal(&d->cond);
-		pthread_mutex_unlock(&d->mutex);
-	}
-}

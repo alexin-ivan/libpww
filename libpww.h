@@ -33,4 +33,3 @@ typedef struct worker_data worker_data_t;
 void start_worker(worker_data_t *t, void *opdata, void *handler);
 void submit_task(worker_data_t *t);
 void join_task(worker_data_t *t);
-void *worker(void *data);
