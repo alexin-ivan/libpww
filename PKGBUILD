@@ -13,7 +13,7 @@ source=("COPYING"
 	"libpww.c"
 	"libpww.h")
 md5sums=('d32239bcb673463ab874e80d47fae504'
-         '413a306fa7782505b01e53486b7051bc'
+         'e308735213b569de84124ba9da8a1510'
          'bf301f4c2dbcfa16813de475ef8e306f'
          'c79c02614aa89fcad501baed2a20a6e9')
 
@@ -23,6 +23,6 @@ build() {
 }
 
 package() {
-	make DESTDIR="${pkgdir}" install
+	make PREFIX=/usr DESTDIR="${pkgdir}" install
 }
 
