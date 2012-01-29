@@ -53,7 +53,7 @@ worker_data_t *start_worker(void)
 	return t;
 }
 
-void submit_task(worker_data_t *t, void *opdata, void *handler)
+void submit_task(worker_data_t *t, void *opdata, handler_t handler)
 {
 	pthread_mutex_lock(&t->mutex);
 	t->opdata = opdata;

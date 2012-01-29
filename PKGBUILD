@@ -14,8 +14,8 @@ source=("COPYING"
 	"libpww.h")
 md5sums=('d32239bcb673463ab874e80d47fae504'
          'e308735213b569de84124ba9da8a1510'
-         'bf301f4c2dbcfa16813de475ef8e306f'
-         'c79c02614aa89fcad501baed2a20a6e9')
+         'cce920932bb71bd958e4513cfa7d5680'
+         'c57a044fa2c1bea64599fff90ba16c18')
 
 install='libpww.install'
 build() {

@@ -18,6 +18,8 @@
 
 #include <pthread.h>
 
+typedef void (*handler_t)(void *);
+
 typedef struct worker_data
 {
 	pthread_t thread_id;
@@ -25,10 +27,10 @@ typedef struct worker_data
 	pthread_cond_t cond;
 	int ret_val, ready;
 	void *opdata;
-	void (*handler)(void *);
+	handler_t handler;
 } worker_data_t;
 
 worker_data_t *start_worker(void);
-void submit_task(worker_data_t *t, void *opdata, void *handler);
+void submit_task(worker_data_t *t, void *opdata, handler_t handler);
 void join_task(worker_data_t *t);
 
