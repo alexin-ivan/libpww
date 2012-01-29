@@ -16,6 +16,7 @@
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+#include <stdlib.h>
 #include "libpww.h"
 
 static void *worker(void *data);
@@ -40,14 +41,16 @@ static void *worker(void *data)
 	}
 }
 
-void start_worker(worker_data_t *t)
+worker_data_t *start_worker(void)
 {
+	worker_data_t *t = malloc(sizeof(worker_data_t));
 	pthread_mutex_init(&t->mutex, NULL);
 	pthread_cond_init(&t->cond, NULL);
 	t->ready = 0;
 	t->opdata = NULL;
 	t->handler = NULL;
 	t->ret_val = pthread_create(&t->thread_id, NULL, worker, t);
+	return t;
 }
 
 void submit_task(worker_data_t *t, void *opdata, void *handler)

@@ -28,7 +28,7 @@ typedef struct worker_data
 	void (*handler)(void *);
 } worker_data_t;
 
-void start_worker(worker_data_t *t);
+worker_data_t *start_worker(void);
 void submit_task(worker_data_t *t, void *opdata, void *handler);
 void join_task(worker_data_t *t);
 
