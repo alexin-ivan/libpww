@@ -25,7 +25,7 @@ typedef struct worker_data
 	pthread_t thread_id;
 	pthread_mutex_t mutex;
 	pthread_cond_t cond;
-	int ret_val, ready;
+	int ret_val, ready, exit;
 	void *opdata;
 	handler_t handler;
 } worker_data_t;
@@ -33,4 +33,5 @@ typedef struct worker_data
 worker_data_t *pww_start_worker(void);
 void pww_submit_task(worker_data_t *t, void *opdata, handler_t handler);
 void pww_join_task(worker_data_t *t);
+void pww_exit_task(worker_data_t *t);
 

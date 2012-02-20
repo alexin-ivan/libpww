@@ -30,6 +30,9 @@ static void *pww_worker(void *data)
 		pthread_mutex_lock(&d->mutex);
 		while (d->ready == 0)
 			pthread_cond_wait(&d->cond, &d->mutex);
+
+		if (d->exit == 1)
+			break;
 		
 		d->handler(d->opdata);
 
@@ -47,6 +50,7 @@ worker_data_t *pww_start_worker(void)
 	pthread_mutex_init(&t->mutex, NULL);
 	pthread_cond_init(&t->cond, NULL);
 	t->ready = 0;
+	t->exit = 0;
 	t->opdata = NULL;
 	t->handler = NULL;
 	t->ret_val = pthread_create(&t->thread_id, NULL, pww_worker, t);
@@ -68,6 +72,15 @@ void pww_join_task(worker_data_t *t)
 	pthread_mutex_lock(&t->mutex);
 	while (t->ready != 0)
 		pthread_cond_wait(&t->cond, &t->mutex);
+	pthread_mutex_unlock(&t->mutex);
+}
+
+void pww_exit_task(worker_data_t *t)
+{
+	pthread_mutex_lock(&t->mutex);
+	t->exit = 1;
+	t->ready = 1;
+	pthread_cond_signal(&t->cond);
 	pthread_mutex_unlock(&t->mutex);
 }
 
