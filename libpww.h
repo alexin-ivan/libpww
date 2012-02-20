@@ -30,7 +30,7 @@ typedef struct worker_data
 	handler_t handler;
 } worker_data_t;
 
-worker_data_t *start_worker(void);
-void submit_task(worker_data_t *t, void *opdata, handler_t handler);
-void join_task(worker_data_t *t);
+worker_data_t *pww_start_worker(void);
+void pww_submit_task(worker_data_t *t, void *opdata, handler_t handler);
+void pww_join_task(worker_data_t *t);
 

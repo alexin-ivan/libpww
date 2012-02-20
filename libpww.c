@@ -19,9 +19,9 @@
 #include <stdlib.h>
 #include "libpww.h"
 
-static void *worker(void *data);
+static void *pww_worker(void *data);
 
-static void *worker(void *data)
+static void *pww_worker(void *data)
 {
 	worker_data_t *d = data;
 	
@@ -41,7 +41,7 @@ static void *worker(void *data)
 	}
 }
 
-worker_data_t *start_worker(void)
+worker_data_t *pww_start_worker(void)
 {
 	worker_data_t *t = malloc(sizeof(worker_data_t));
 	pthread_mutex_init(&t->mutex, NULL);
@@ -49,11 +49,11 @@ worker_data_t *start_worker(void)
 	t->ready = 0;
 	t->opdata = NULL;
 	t->handler = NULL;
-	t->ret_val = pthread_create(&t->thread_id, NULL, worker, t);
+	t->ret_val = pthread_create(&t->thread_id, NULL, pww_worker, t);
 	return t;
 }
 
-void submit_task(worker_data_t *t, void *opdata, handler_t handler)
+void pww_submit_task(worker_data_t *t, void *opdata, handler_t handler)
 {
 	pthread_mutex_lock(&t->mutex);
 	t->opdata = opdata;
@@ -63,7 +63,7 @@ void submit_task(worker_data_t *t, void *opdata, handler_t handler)
 	pthread_mutex_unlock(&t->mutex);
 }
 
-void join_task(worker_data_t *t)
+void pww_join_task(worker_data_t *t)
 {
 	pthread_mutex_lock(&t->mutex);
 	while (t->ready != 0)
