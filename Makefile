@@ -1,7 +1,7 @@
 DESTDIR?=
 PREFIX?=/usr/local
 CC=gcc
-CFLAGS=-O3 -std=c99 -fPIC
+CFLAGS=-O3 -std=c99 -fPIC -W -Wall -pedantic
 ifeq ($(shell uname), Darwin)
 	LIBSUFFIX?=dylib
 else

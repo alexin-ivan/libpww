@@ -42,6 +42,8 @@ static void *pww_worker(void *data)
 		pthread_cond_signal(&d->cond);
 		pthread_mutex_unlock(&d->mutex);
 	}
+
+	return NULL;
 }
 
 worker_data_t *pww_start_worker(void)
