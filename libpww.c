@@ -49,6 +49,8 @@ static void *pww_worker(void *data)
 worker_data_t *pww_start_worker(void)
 {
 	worker_data_t *t = malloc(sizeof(worker_data_t));
+	if (t == NULL)
+		return NULL;
 	pthread_mutex_init(&t->mutex, NULL);
 	pthread_cond_init(&t->cond, NULL);
 	t->ready = 0;
