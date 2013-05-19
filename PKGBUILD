@@ -1,4 +1,4 @@
-# Maintainer: Oleksandr Natalenko aka post-factum <pfactum@gmail.com>
+# Maintainer: Oleksandr Natalenko aka post-factum <oleksandr@natalenko.name>
 pkgname=libpww
 pkgver=0.0.1
 pkgrel=1
